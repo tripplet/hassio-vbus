@@ -14,9 +14,7 @@ RUN git clone https://github.com/tripplet/vbus-collector.git --recursive --branc
 
 RUN cd /src/collector/paho.mqtt.c && \
     mkdir build && cd build && \
-    cmake -DPAHO_BUILD_STATIC=TRUE -DPAHO_ENABLE_CPACK=FALSE -DPAHO_HIGH_PERFORMANCE=TRUE \
-          -DDB_PATH=/data/data.db \
-          .. && \
+    cmake -DPAHO_BUILD_STATIC=TRUE -DPAHO_ENABLE_CPACK=FALSE -DPAHO_HIGH_PERFORMANCE=TRUE .. && \
     make -j
 
 RUN cd /src/collector && make -j && strip vbus-collector
@@ -26,7 +24,9 @@ RUN apk add autoconf automake libtool
 
 RUN git clone https://github.com/tripplet/vbus-server.git --recursive --branch master --depth 1 /src/server
 
-RUN cd /src/server && cmake -DCMAKE_BUILD_TYPE=Release . && make -j && strip vbus-server
+RUN cd /src/server && \
+    cmake -DCMAKE_BUILD_TYPE=Release -DDB_PATH=/data/data.db . && \
+    make -j && strip vbus-server
 
 #### Stage 2
 FROM alpine
