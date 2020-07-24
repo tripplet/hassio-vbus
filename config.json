@@ -1,0 +1,38 @@
+{
+    "name": "VBUS",
+    "version": "1",
+    "slug": "vbus",
+    "description": "Addon for collecting and displaying data from Resol VBUS devices.",
+    "arch": [
+        "armhf",
+        "aarch64",
+        "amd64"
+    ],
+    "auto_uart": true,
+    "privileged": ["SYS_MODULE", "SYS_RAWIO"],
+    "ingress": true,
+    "startup": "system",
+    "boot": "auto",
+    "options": {
+        "options": {
+            "device": null,
+            "interval": 60,
+            "mqtt": {
+                "base_topic": "heat",
+                "server": "mqtt://mqtt-server",
+                "user": "user",
+                "password": "password"
+              }
+        }
+    },
+    "schema": {
+        "device": "str",
+        "interval": "int(1,)",
+        "mqtt": {
+            "base_topic": "str",
+            "server": "str",
+            "user": "str?",
+            "password": "str?"
+          }
+    }
+}
