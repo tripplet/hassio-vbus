@@ -31,13 +31,13 @@ RUN cd /src/server && cmake -DCMAKE_BUILD_TYPE=Release . && make -j && strip vbu
 #### Stage 2
 FROM alpine
 
+COPY --from=0 /src/collector/vbus-collector /bin/vbus-collector
+COPY --from=0 /src/server/web/* /htdocs/
+
 RUN apk update --no-cache && \
     apk add --no-cache libstdc++ sqlite-libs nginx fcgiwrap && \
     chown -R nginx: /htdocs && \
     chmod o+w /run
-
-COPY --from=0 /src/collector/vbus-collector /bin/vbus-collector
-COPY --from=0 /src/server/web/* /htdocs/
 
 COPY rootfs /
 
