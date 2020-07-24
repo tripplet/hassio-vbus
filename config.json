@@ -18,7 +18,7 @@
         "device": null,
         "interval": 60,
         "mqtt": {
-            "base_topic": "heat",
+            "base_topic": "heating",
             "server": "mqtt://mqtt-server",
             "user": "user",
             "password": "password"
