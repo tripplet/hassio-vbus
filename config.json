@@ -14,16 +14,14 @@
     "startup": "system",
     "boot": "auto",
     "options": {
-        "options": {
-            "device": null,
-            "interval": 60,
-            "mqtt": {
-                "base_topic": "heat",
-                "server": "mqtt://mqtt-server",
-                "user": "user",
-                "password": "password"
-              }
-        }
+        "device": null,
+        "interval": 60,
+        "mqtt": {
+            "base_topic": "heat",
+            "server": "mqtt://mqtt-server",
+            "user": "user",
+            "password": "password"
+          }
     },
     "schema": {
         "device": "str",
