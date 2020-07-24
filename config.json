@@ -11,6 +11,7 @@
     "auto_uart": true,
     "privileged": ["SYS_MODULE", "SYS_RAWIO"],
     "ingress": true,
+    "panel_icon": "mdi:chart-bell-curve",
     "startup": "system",
     "boot": "auto",
     "options": {
