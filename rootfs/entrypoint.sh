@@ -1,4 +1,4 @@
 #!/bin/sh
 
-fcgiwrap -s unix:/run/fcgiwrap.sock &
+su -m nginx -c "fcgiwrap -s unix:/run/fcgiwrap.sock" &
 nginx
