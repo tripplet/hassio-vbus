@@ -40,7 +40,7 @@ COPY --from=0 /src/collector/vbus-collector /bin/vbus-collector
 COPY --from=0 /src/server/web/* /htdocs/
 
 RUN apk update --no-cache && \
-    apk add --no-cache libstdc++ sqlite-libs nginx fcgiwrap && \
+    apk add --no-cache tzdata libstdc++ sqlite-libs nginx fcgiwrap && \
     chown -R nginx: /htdocs && \
     chmod o+w /run
 
