@@ -17,6 +17,11 @@ RUN cd /src/collector/paho.mqtt.c && \
     cmake -DPAHO_BUILD_STATIC=TRUE -DPAHO_ENABLE_CPACK=FALSE -DPAHO_HIGH_PERFORMANCE=TRUE .. && \
     make -j
 
+RUN cd /src/collector/cJSON && \
+    mkdir build && cd build && \
+    cmake -DBUILD_SHARED_LIBS=OFF -DENABLE_CJSON_TEST=OFF -DENABLE_CJSON_UTILS=OFF -DENABLE_LOCALES=OFF .. && \
+    make -j
+
 RUN cd /src/collector && make -j && strip vbus-collector
 
 ## vbus-server
