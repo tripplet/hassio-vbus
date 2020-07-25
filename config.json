@@ -1,6 +1,6 @@
 {
     "name": "VBus",
-    "version": "6",
+    "version": "7",
     "slug": "vbus",
     "description": "Addon for collecting and displaying data from Resol VBus devices.",
     "arch": [
@@ -17,19 +17,27 @@
     "options": {
         "device": null,
         "interval": 60,
+        "print_stdout": false,
+        "verbose": false,
         "mqtt": {
+            "enabled": false,
             "base_topic": "heating",
-            "server": "mqtt://mqtt-server",
-            "user": "user",
-            "password": "password"
+            "server": "tcp://mqtt-server",
+            "client_id": "vbus",
+            "user": null,
+            "password": null
           }
     },
     "schema": {
         "device": "str",
         "interval": "int(1,)",
+        "print_stdout":"bool",
+        "verbose": "bool",
         "mqtt": {
+            "enabled": "bool",
             "base_topic": "str",
             "server": "str",
+            "client_id": "str",
             "user": "str?",
             "password": "str?"
           }
