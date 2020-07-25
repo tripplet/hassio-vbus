@@ -26,7 +26,7 @@
             "password": null
         },
         "homeassistant": {
-            "enabled": "true",
+            "enabled": true,
             "entity_name": "heating"
         }
     },
