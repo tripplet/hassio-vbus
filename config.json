@@ -1,6 +1,6 @@
 {
     "name": "VBus",
-    "version": "8",
+    "version": "9",
     "slug": "vbus",
     "description": "Addon for collecting and displaying data from Resol VBus devices.",
     "arch": [
@@ -16,6 +16,7 @@
     "boot": "auto",
     "options": {
         "device": null,
+	"database": null,
         "interval": 60,
         "print_stdout": false,
         "verbose": false,
@@ -30,6 +31,7 @@
     },
     "schema": {
         "device": "str",
+	"database": "str",
         "interval": "int(1,)",
         "print_stdout":"bool",
         "verbose": "bool",
