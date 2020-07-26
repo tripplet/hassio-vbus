@@ -1,6 +1,6 @@
 {
     "name": "VBus",
-    "version": "19",
+    "version": "20",
     "slug": "vbus",
     "description": "Addon for collecting and displaying data from Resol VBus devices.",
     "arch": ["armhf", "aarch64", "amd64"],
