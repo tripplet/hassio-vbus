@@ -1,6 +1,6 @@
 {
     "name": "VBus",
-    "version": "16",
+    "version": "17",
     "slug": "vbus",
     "description": "Addon for collecting and displaying data from Resol VBus devices.",
     "arch": ["armhf", "aarch64", "amd64"],
@@ -12,7 +12,7 @@
     "startup": "system",
     "boot": "auto",
     "options": {
-        "device": null,
+        "device": "",
         "database": "/data/data.db",
         "interval": 60,
         "print_stdout": false,
@@ -22,8 +22,8 @@
             "base_topic": "heating",
             "server": "tcp://mqtt-server",
             "client_id": "vbus",
-            "user": null,
-            "password": null
+            "user": "",
+            "password": ""
         },
         "homeassistant": {
             "enabled": true,
