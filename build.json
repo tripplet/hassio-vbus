@@ -4,5 +4,8 @@
         "amd64": "amd64/alpine:3.12",
         "armhf": "armhf/alpine:3.12"
     },
-    "args": {}
+    "args": {
+        "COLLECTOR_VERSION": "v1.0.0",
+        "SERVER_VERSION": "v1.0.0"
+    }
 }

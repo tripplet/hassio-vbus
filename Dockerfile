@@ -10,7 +10,8 @@ RUN mkdir /src && cd /src
 RUN apk add build-base git cmake sqlite-dev curl-dev linux-headers
 
 # Add git repository source code
-RUN git clone https://github.com/tripplet/vbus-collector.git --recursive --branch master --depth 1 /src/collector
+ARG COLLECTOR_VERSION=master
+RUN git clone https://github.com/tripplet/vbus-collector.git --recursive --branch $COLLECTOR_VERSION --depth 1 /src/collector
 
 RUN cd /src/collector/paho.mqtt.c && \
     mkdir build && cd build && \
@@ -27,7 +28,8 @@ RUN cd /src/collector && make -j && strip vbus-collector
 ## vbus-server
 RUN apk add autoconf automake libtool
 
-RUN git clone https://github.com/tripplet/vbus-server.git --recursive --branch master --depth 1 /src/server
+ARG SERVER_VERSION=master
+RUN git clone https://github.com/tripplet/vbus-server.git --recursive --branch $SERVER_VERSION --depth 1 /src/server
 
 RUN cd /src/server && \
     cmake -DCMAKE_BUILD_TYPE=Release -DDB_PATH=/data/data.db . && \
