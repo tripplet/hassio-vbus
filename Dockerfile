@@ -7,7 +7,7 @@ RUN apk update
 RUN mkdir /src && cd /src
 
 ## vbus-collector
-RUN apk add build-base git cmake sqlite-dev linux-headers
+RUN apk add build-base git cmake sqlite-dev curl-dev linux-headers
 
 # Add git repository source code
 RUN git clone https://github.com/tripplet/vbus-collector.git --recursive --branch master --depth 1 /src/collector
@@ -40,7 +40,7 @@ COPY --from=0 /src/collector/vbus-collector /bin/vbus-collector
 COPY --from=0 /src/server/web/* /htdocs/
 
 RUN apk update --no-cache && \
-    apk add --no-cache tzdata libstdc++ sqlite-libs nginx fcgiwrap && \
+    apk add --no-cache tzdata libstdc++ libcurl sqlite-libs nginx fcgiwrap && \
     chown -R nginx: /htdocs && \
     chmod o+w /run
 
