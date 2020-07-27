@@ -6,6 +6,7 @@
     },
     "args": {
         "COLLECTOR_VERSION": "v1.0.3",
-        "SERVER_VERSION": "v1.0.1"
+        "SERVER_VERSION": "v1.0.2",
+        "BROTLI_SUPPORT": 0
     }
 }
