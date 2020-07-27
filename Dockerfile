@@ -26,13 +26,14 @@ RUN cd /src/collector/cJSON && \
 RUN cd /src/collector && make -j && strip vbus-collector
 
 ## vbus-server
-RUN apk add autoconf automake libtool
+RUN apk add autoconf automake libtool zlib-dev
 
 ARG SERVER_VERSION=master
 RUN git clone https://github.com/tripplet/vbus-server.git --recursive --branch $SERVER_VERSION --depth 1 /src/server
 
+ARG BROTLI_SUPPORT=0
 RUN cd /src/server && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DDB_PATH=/data/data.db . && \
+    cmake -DCMAKE_BUILD_TYPE=Release -DBROTLI_SUPPORT=$BROTLI_SUPPORT -DDB_PATH=/data/data.db . && \
     make -j && strip vbus-server
 
 #### Stage 2
@@ -42,7 +43,7 @@ COPY --from=0 /src/collector/vbus-collector /bin/vbus-collector
 COPY --from=0 /src/server/web/* /htdocs/
 
 RUN apk update --no-cache && \
-    apk add --no-cache tzdata libstdc++ libcurl sqlite-libs nginx fcgiwrap && \
+    apk add --no-cache tzdata libstdc++ libcurl zlib sqlite-libs nginx fcgiwrap && \
     chown -R nginx: /htdocs && \
     chmod o+w /run
 
