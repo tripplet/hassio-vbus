@@ -1,16 +1,16 @@
 ARG BUILD_FROM
-FROM $BUILD_FROM
+FROM $BUILD_FROM as build
 
 # Install build packages
 RUN apk update
+RUN apk add build-base git cmake sqlite-dev curl-dev linux-headers autoconf automake libtool zlib-dev
 
-RUN mkdir /src && cd /src
 
 ## vbus-collector
-RUN apk add build-base git cmake sqlite-dev curl-dev linux-headers
-
-# Add git repository source code
+FROM build as build-collector
 ARG COLLECTOR_VERSION=master
+
+RUN mkdir /src && cd /src
 RUN git clone https://github.com/tripplet/vbus-collector.git --recursive --branch $COLLECTOR_VERSION --depth 1 /src/collector
 
 RUN cd /src/collector/paho.mqtt.c && \
@@ -25,10 +25,12 @@ RUN cd /src/collector/cJSON && \
 
 RUN cd /src/collector && make -j && strip vbus-collector
 
-## vbus-server
-RUN apk add autoconf automake libtool zlib-dev
 
+## vbus-server
+FROM build as build-server
 ARG SERVER_VERSION=master
+
+RUN mkdir /src && cd /src
 RUN git clone https://github.com/tripplet/vbus-server.git --recursive --branch $SERVER_VERSION --depth 1 /src/server
 
 ARG BROTLI_SUPPORT=0
@@ -39,15 +41,16 @@ RUN cd /src/server && \
 #### Stage 2
 FROM alpine
 
-COPY --from=0 /src/collector/vbus-collector /bin/vbus-collector
-COPY --from=0 /src/server/web/* /htdocs/
-
 RUN apk update --no-cache && \
-    apk add --no-cache tzdata libstdc++ libcurl zlib sqlite-libs nginx fcgiwrap && \
-    chown -R nginx: /htdocs && \
-    chmod o+w /run
+    apk add --no-cache tzdata libstdc++ libcurl zlib sqlite-libs nginx fcgiwrap
+
+COPY --from=build-collector /src/collector/vbus-collector /bin/vbus-collector
+COPY --from=build-server /src/server/web/* /htdocs/
 
 COPY rootfs /
+
+RUN chown -R nginx: /htdocs && \
+    chmod o+w /run
 
 LABEL maintainer="Tobias Tangemann"
 LABEL io.hass.version="1.0" io.hass.type="addon" io.hass.arch="armhf|aarch64|amd64"
