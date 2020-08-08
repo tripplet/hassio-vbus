@@ -19,4 +19,4 @@ docker build --build-arg BUILD_FROM="$BUILD_FROM" \
              --build-arg COLLECTOR_VERSION="$COLLECTOR_VERSION" \
              --build-arg SERVER_VERSION="$SERVER_VERSION" \
              --build-arg BROTLI_SUPPORT=0 \
-             --tag ttobias/vbus . 
+             --tag ttobias/hassio-vbus . 

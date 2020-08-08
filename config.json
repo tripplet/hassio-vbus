@@ -1,6 +1,6 @@
 {
     "name": "VBus",
-    "version": "26",
+    "version": "27",
     "slug": "vbus",
     "description": "Addon for collecting and displaying data from Resol VBus devices.",
     "arch": ["armhf", "aarch64", "amd64"],
@@ -32,8 +32,8 @@
     },
     "schema": {
         "device": "str",
-        "database": "str",
-        "interval": "int",
+        "database": "str?",
+        "interval": "int?",
         "print_stdout": "bool",
         "verbose": "bool",
         "mqtt": {
