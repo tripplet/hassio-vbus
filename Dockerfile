@@ -42,7 +42,7 @@ RUN cd /src/server && \
 FROM alpine
 
 RUN apk update --no-cache && \
-    apk add --no-cache tzdata libstdc++ libcurl zlib sqlite-libs nginx fcgiwrap jq
+    apk add --no-cache tzdata libstdc++ libcurl zlib sqlite-libs nginx fcgiwrap
 
 COPY --from=build-collector /src/collector/vbus-collector /bin/vbus-collector
 COPY --from=build-server /src/server/web/* /htdocs/
@@ -57,5 +57,5 @@ RUN chown -R nginx: /htdocs && \
 LABEL maintainer="Tobias Tangemann"
 LABEL io.hass.version="1.0" io.hass.type="addon" io.hass.arch="armhf|aarch64|amd64"
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["init"]
 HEALTHCHECK --interval=5m --timeout=10s --start-period=10s CMD /healthcheck.sh 5

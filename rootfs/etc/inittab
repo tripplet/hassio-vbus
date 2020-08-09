@@ -1,0 +1,12 @@
+# Print version infos
+::wait:nginx -v
+::wait:/htdocs/vbus-server.cgi --version
+
+# Print vbus-server version
+::respawn:/bin/vbus-collector --config /data/options.json
+
+# Start the fcgi process
+::respawn:su -s /bin/sh nginx -c "fcgiwrap -s unix:/run/fcgiwrap.sock"
+
+# Run nginx
+::respawn:nginx
