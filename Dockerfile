@@ -42,7 +42,7 @@ RUN cd /src/server && \
 FROM alpine
 
 RUN apk update --no-cache && \
-    apk add --no-cache tzdata libstdc++ libcurl zlib sqlite-libs nginx fcgiwrap
+    apk add --no-cache tzdata libstdc++ libcurl zlib sqlite-libs nginx fcgiwrap jq
 
 COPY --from=build-collector /src/collector/vbus-collector /bin/vbus-collector
 COPY --from=build-server /src/server/web/* /htdocs/
