@@ -2,6 +2,9 @@
 ::wait:nginx -v
 ::wait:/htdocs/vbus-server.cgi --version
 
+# Reset vbus device
+::wait:/bin/reset-resol.sh /data/options.json
+
 # Print vbus-server version
 ::respawn:/bin/vbus-collector --config /data/options.json
 
