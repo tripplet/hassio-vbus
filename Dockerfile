@@ -11,7 +11,7 @@ FROM build as build-collector
 ARG COLLECTOR_VERSION=master
 
 RUN mkdir /src && cd /src
-RUN git clone https://github.com/tripplet/vbus-collector.git --recursive --branch $COLLECTOR_VERSION --depth 1 /src/collector
+RUN git clone https://github.com/tripplet/vbus-collector.git --recursive --single-branch --branch $COLLECTOR_VERSION --depth 1 /src/collector
 
 RUN cd /src/collector/paho.mqtt.c && \
     mkdir build && cd build && \
@@ -31,14 +31,14 @@ FROM build as build-server
 ARG SERVER_VERSION=master
 
 RUN mkdir /src && cd /src
-RUN git clone https://github.com/tripplet/vbus-server.git --recursive --branch $SERVER_VERSION --depth 1 /src/server
+RUN git clone https://github.com/tripplet/vbus-server.git --recursive --single-branch --branch $SERVER_VERSION --depth 1 /src/server
 
 ARG BROTLI_SUPPORT=0
 RUN cd /src/server && \
     cmake -DCMAKE_BUILD_TYPE=Release -DBROTLI_SUPPORT=$BROTLI_SUPPORT -DDB_PATH=/data/data.db . && \
     make -j && strip vbus-server
 
-#### Stage 2
+## Final container
 FROM alpine
 
 RUN apk update --no-cache && \
@@ -52,7 +52,7 @@ COPY rootfs /
 RUN chown -R nginx: /htdocs && \
     chmod o+w /run
 
-#### General stuff
+## General stuff
 
 LABEL maintainer="Tobias Tangemann"
 LABEL io.hass.version="1.0" io.hass.type="addon" io.hass.arch="armhf|aarch64|amd64"
