@@ -5,7 +5,7 @@
         "armhf": "armhf/alpine:3.12"
     },
     "args": {
-        "COLLECTOR_VERSION": "v1.2",
+        "COLLECTOR_VERSION": "v1.3",
         "SERVER_VERSION": "v1.1.1",
         "BROTLI_SUPPORT": 0
     }
