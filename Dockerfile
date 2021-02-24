@@ -2,16 +2,16 @@ ARG BUILD_FROM
 FROM $BUILD_FROM as build
 
 # Install build packages
-RUN apk update
-RUN apk add build-base git cmake sqlite-dev curl-dev linux-headers autoconf automake libtool zlib-dev
+RUN apk update && \
+    apk add --no-cache build-base git cmake sqlite-dev curl-dev linux-headers autoconf automake libtool zlib-dev
 
 
 ## vbus-collector
 FROM build as build-collector
 ARG COLLECTOR_VERSION=master
 
-RUN mkdir /src && cd /src
-RUN git clone https://github.com/tripplet/vbus-collector.git --recursive --single-branch --branch $COLLECTOR_VERSION --depth 1 /src/collector
+RUN mkdir /src && cd /src && \
+    git clone https://github.com/tripplet/vbus-collector.git --recursive --single-branch --branch $COLLECTOR_VERSION --depth 1 /src/collector
 
 RUN cd /src/collector/paho.mqtt.c && \
     mkdir build && cd build && \
@@ -30,8 +30,8 @@ RUN cd /src/collector && make -j && strip vbus-collector
 FROM build as build-server
 ARG SERVER_VERSION=master
 
-RUN mkdir /src && cd /src
-RUN git clone https://github.com/tripplet/vbus-server.git --recursive --single-branch --branch $SERVER_VERSION --depth 1 /src/server
+RUN mkdir /src && cd /src && \
+    git clone https://github.com/tripplet/vbus-server.git --recursive --single-branch --branch $SERVER_VERSION --depth 1 /src/server
 
 ARG BROTLI_SUPPORT=0
 RUN cd /src/server && \
