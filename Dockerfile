@@ -38,7 +38,7 @@ RUN cd /src/server && \
     cmake -DCMAKE_BUILD_TYPE=Release -DBROTLI_SUPPORT=$BROTLI_SUPPORT -DDB_PATH=/data/data.db . && \
     make -j && strip vbus-server
 
-## Final container
+## Final image
 FROM alpine
 
 RUN apk update --no-cache && \
@@ -57,5 +57,5 @@ RUN chown -R nginx: /htdocs && \
 LABEL maintainer="Tobias Tangemann"
 LABEL io.hass.version="1.0" io.hass.type="addon" io.hass.arch="armhf|aarch64|amd64"
 
-ENTRYPOINT ["init"]
+ENTRYPOINT ["/init"]
 HEALTHCHECK --interval=5m --timeout=10s --start-period=10s CMD /healthcheck.sh 5
