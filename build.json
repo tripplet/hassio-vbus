@@ -7,6 +7,6 @@
     "args": {
         "COLLECTOR_VERSION": "v1.4.1",
         "SERVER_VERSION": "v1.1.1",
-        "BROTLI_SUPPORT": 0
+        "BROTLI_SUPPORT": "0"
     }
 }
