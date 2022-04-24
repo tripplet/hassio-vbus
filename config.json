@@ -1,10 +1,10 @@
 {
     "name": "VBus",
-    "version": "36",
+    "version": "37",
     "slug": "vbus",
     "description": "Addon for collecting and displaying data from Resol VBus devices.",
     "arch": ["armhf", "aarch64", "amd64"],
-    "auto_uart": true,
+    "uart": true,
     "privileged": ["SYS_RAWIO"],
     "init": false,
     "ingress": true,
