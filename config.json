@@ -1,9 +1,10 @@
 {
     "name": "VBus",
-    "version": "2022.05",
+    "version": "2022.06",
     "slug": "vbus",
     "description": "Addon for collecting and displaying data from Resol VBus devices.",
     "arch": ["armv7", "aarch64", "amd64"],
+    "image": "ghcr.io/tripplet/hassio-vbus-{arch}",
     "uart": true,
     "privileged": ["SYS_RAWIO"],
     "init": false,
