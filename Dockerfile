@@ -11,7 +11,7 @@ FROM build as build-collector
 ARG COLLECTOR_VERSION=master
 
 RUN mkdir /src && cd /src && \
-    git clone https://github.com/tripplet/vbus-collector.git --recursive --single-branch --branch $COLLECTOR_VERSION --depth 1 /src/collector
+    git clone https://github.com/tripplet/vbus-collector.git --config advice.detachedHead=false --recursive --single-branch --branch $COLLECTOR_VERSION --depth 1 /src/collector
 
 RUN cd /src/collector/paho.mqtt.c && \
     mkdir build && cd build && \
@@ -31,7 +31,7 @@ FROM build as build-server
 ARG SERVER_VERSION=master
 
 RUN mkdir /src && cd /src && \
-    git clone https://github.com/tripplet/vbus-server.git --recursive --single-branch --branch $SERVER_VERSION --depth 1 /src/server
+    git clone https://github.com/tripplet/vbus-server.git --config advice.detachedHead=false --recursive --single-branch --branch $SERVER_VERSION --depth 1 /src/server
 
 ARG BROTLI_SUPPORT=0
 RUN cd /src/server && \
