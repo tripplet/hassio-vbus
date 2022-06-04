@@ -42,7 +42,7 @@ jobs:
           echo "::set-output name=SERVER_VERSION::$SERVER_VERSION"
           BUILD_FROM=$(jq -r .build_from.amd64 build.json)
           echo "::set-output name=BUILD_FROM::$BUILD_FROM"
-          ARCH_TAG=$(echo "${{matrix.arch}}" | tr -d "linux" | tr -d "/" | tr "arm64" "aarch64")
+          ARCH_TAG=$(echo -n "${{matrix.arch}}" | tr -d "/" | sed "s/linux//" | sed "s/arm64/aarch64/")
           echo "::set-output name=ARCH_TAG::$ARCH_TAG"
 
 
