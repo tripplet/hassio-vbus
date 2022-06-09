@@ -1,6 +1,6 @@
 # hassio-vbus
 
-Installtion:
+Installation:
 Add the github repository URL to the **Repositories** in the **Add-on store** in Home Assistant:
 
     https://github.com/tripplet/hassio-vbus
